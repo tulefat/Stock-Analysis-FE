@@ -17,16 +17,13 @@ const Home = () => {
   const getSearchResults = async (e) => {e.preventDefault()
 
     const response = await SearchStocks(searchQuery)
-
-    const result = Array.isArray(response)
-
-    setSearchResults(result)
+    setSearchResults(response)
     toggleSearched(true)
     setSearchQuery("")
   }
 
   const handleChange=(event) =>{
-    setSearchQuery(PerformanceEventTiming.target.value)
+    setSearchQuery(event.target.value)
   }
 
   const saveStock=async (stock) =>{
@@ -35,15 +32,15 @@ const Home = () => {
     }
 
     await CreateStock(data)
-    await GetStocks()
+    await displayStocks()
   }
 
 const analysis = (stock) => {
-  navigate('/analysis/${stock.symbol}')
+  navigate(`/analysis/${stock.symbol}`)
 }
 
 useEffect(() => {
-  GetStocks()
+  displayStocks()
 },[])
 
 return (
@@ -56,10 +53,10 @@ return (
     <section className="search-results container-grid">
    {searchResults.map((data,index)=>(
     <Stock
-    key={data.id}
+    key={data._id}
     symbol={data.symbol}
     name={data.name}
-    onClick={()=>Stock(data)}
+    onClick={()=>saveStock(data)}
     />
    ))}
 
@@ -74,7 +71,7 @@ return (
 <section className="container-grid">
   {stocks.map((stock) => (
     <Stock
-    key={stock.id}
+    key={stock._id}
     symbol={stock.symbol}
     name={stock.name}
     onClick={()=>analysis(stock)}
@@ -82,7 +79,6 @@ return (
   ))}
 </section>
   </div>
-  <div>Test</div>
 </div>
 )}
 
