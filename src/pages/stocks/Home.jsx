@@ -39,6 +39,8 @@ const Home = () => {
     await GetSharesOutstanding(symbol)
     await GetStockPrice(symbol)
     await displayStocks()
+    toggleSearched(false)
+    setSearchResults([])
   } catch (error) { console.log ("error saving stock", error)}
 }
 
