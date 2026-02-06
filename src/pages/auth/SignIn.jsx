@@ -14,41 +14,23 @@ const SignIn = ({ setUser }) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
 
-  //   const userData = await SignInUser(formValues)
-
-  //   // ✅ store token (adjust key name based on your backend response)
-  //   const token = userData?.token || userData?.accessToken
-  //   if (token) localStorage.setItem("token", token)
-
-  //   // ✅ store the user object (keep it consistent with getStoredUser())
-  //   const userToStore = userData?.user || userData
-  //   localStorage.setItem("user", JSON.stringify(userToStore))
-
-  //   setFormValues(initialState)
-  //   setUser(userToStore)
-
-  //   navigate("/projects")
-  // }
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await SignInUser(formValues) // res is now { user: {...}, token: "..." }
+      const res = await SignInUser(formValues)
 
-      // 1. Store the token (Backend sends 'token')
+
       const token = res.token
       if (token) {
         localStorage.setItem("token", token)
       }
 
-      // 2. Store and Set the user (Backend sends 'user')
       const user = res.user
       if (user) {
         localStorage.setItem("user", JSON.stringify(user))
         setUser(user)
-        navigate("/projects")
+        navigate("/stocks")
       } else {
         console.error("User object missing from response")
       }
@@ -62,9 +44,9 @@ const SignIn = ({ setUser }) => {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1 className="auth-title">Welcome to stock_analysis</h1>
+        <h1 className="auth-title">Welcome to stock analysis</h1>
         <p className="auth-subtitle">
-          Your favourite platform for managing tasks & projects
+          Your favourite platform for evaluating stocks based on intrinsic value
         </p>
 
         <form className="auth-form" onSubmit={handleSubmit}>

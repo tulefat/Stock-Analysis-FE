@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react"
 import{useNavigate} from "react-router-dom"
-import Search from "../components/Search"
-import Stock from "../components/Stock"
+import Search from "../../components/stocks/Search"
+import Stock from "../../components/stocks/Stock"
 import { GetStocks,SearchStocks,CreateStock } from "../../services/api/Stocks.api"
 
 const Home = () => {
