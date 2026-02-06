@@ -37,7 +37,7 @@ const Feed = ({ user }) => {
         <button onClick={() => navigate("/stocks")}>
           Go To Stocks
         </button>
-      
+
       {stocks.length === 0 ? (
         <p>No stocks available</p>
       ) : (

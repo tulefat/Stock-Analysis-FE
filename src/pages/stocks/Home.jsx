@@ -2,7 +2,7 @@ import {useState, useEffect} from "react"
 import{useNavigate} from "react-router-dom"
 import Search from "../../components/stocks/Search"
 import Stock from "../../components/stocks/Stock"
-import { GetStocks,SearchStocks,CreateStock } from "../../services/api/Stocks.api"
+import { GetStocks,SearchStocks,CreateStock,GetCashFlow,GetSharesOutstanding,GetStockPrice } from "../../services/api/Stocks.api"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -27,13 +27,20 @@ const Home = () => {
   }
 
   const saveStock=async (stock) =>{
-    const data ={
-      symbol:stock.symbol, name:stock.name,
+    try {
+      const symbol = stock.symbol
+      const data =
+      {
+      symbol:symbol, name:stock.name,
     }
 
     await CreateStock(data)
+    await GetCashFlow(symbol)
+    await GetSharesOutstanding(symbol)
+    await GetStockPrice(symbol)
     await displayStocks()
-  }
+  } catch (error) { console.log ("error saving stock", error)}
+}
 
 const analysis = (stock) => {
   navigate(`/analysis/${stock.symbol}`)
@@ -53,7 +60,7 @@ return (
     <section className="search-results container-grid">
    {searchResults.map((data,index)=>(
     <Stock
-    key={data._id}
+    key={data.symbol}
     symbol={data.symbol}
     name={data.name}
     onClick={()=>saveStock(data)}
@@ -80,6 +87,7 @@ return (
 </section>
   </div>
 </div>
-)}
+)
+}
 
 export default Home
