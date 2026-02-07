@@ -49,3 +49,99 @@ useEffect(()=>{
   setPercentDifferent(percentDifferent)
   setStatus(calculationStatus(percentDifferent))
 }, [stock,capexFactor])
+
+const runAnalysis = async ()=> {
+  try {if (!stock) return
+
+    const factorNumber = Number(capexFactor)
+
+    if(isNaN(factorNumber)=== true) {
+      return
+    }
+    if (analysis) {
+      const update = await UpdateAnalysis(analysis._id,{
+        userId: user.id,
+        capexFactor: factorNumber,
+      })
+      setAnalysis(update)
+      setCapexFactor(update.capexFactor)
+    } else {
+      const create = await CreateAnalysis({
+        stockId: stock._id,
+        capexFactor: factorNumber
+      })
+      setAnalysis(create)
+      setCapexFactor(create.capexFactor)
+    }
+  } catch (error) {
+    console.log("Analysis Failed")
+  }
+  }
+
+  if (!user) {
+    return (
+      <div>
+      <h2> You must signed in </h2>
+      <button onClick={()=> navigate ("/signin")}>Sign In </button>
+      </div>
+    )
+  }
+
+  if (!stock) {
+    return (
+      <div>
+<h2>Analysis</h2>
+<p>Stock not found in the saved list.</p>
+<button onClick={()=> navigate ("/stocks")}>Back to stock search  </button>
+
+      </div>
+
+    )
+  }
+
+  return (
+    <div className="analysis">
+      <h1> Analysis: {stock.symbol}</h1>
+      <p>{stock.name}</p>
+
+      <div className="analysis-card">
+        <h3> Stock fundamentals</h3>
+        <p>Price: {Number(stock.price)}</p>
+        <p>Operating Cash Flow: {Number(stock.operatingCashFlow)}</p>
+        <p>Capital Expenditure: {Number(stock.capitalExpenditure)}</p>
+        <p>Outstanding Shares: {Number(stock.outstandingShares)}</p>
+      </div>
+      <div className="analysis-card">
+        <h3>Capex Factor</h3>
+        <input
+        type="number"
+        step="0.1"
+        value={capexFactor}
+        />
+        <button onClick={runAnalysis}>
+          {analysis ? "Update Analysis" : "Run Analysis"}
+
+        </button>
+      </div>
+      <div className="analysis-card">
+        <h3> 10 Cap Calculations</h3>
+        <p>Owner Earnings: {ownerEarnings}</p>
+        <p>Fair Value (10 Cap) : {fairValue10cap}</p>
+        <p>% Difference: {percentDifferent}</p>
+        <p>Status: {status} </p>
+
+      </div>
+      {analysis && (
+        <div className="analysis-card">
+          <h3>Saved Analysis </h3>
+          <p>capexFactor: {analysis.capexFactor}</p>
+          <p>analysis price: {Number(analysis.analysisPrice)}</p>
+          <p>Fair Value 10 Cap : {Number(analysis.fairValue10Cap)}</p>
+          <p>percentDifferent: {Number(analysis.percentDifferent)}</p>
+          <p>status: {Number(analysis.status)}</p>
+    </div>
+      )}
+      <button onClick={()=> navigate ("/stocks")}>Back to Stocks </button>
+      </div>
+  )
+  export default Analysis
