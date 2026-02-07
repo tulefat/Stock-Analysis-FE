@@ -13,32 +13,35 @@ const Analysis = ({ user }) => {
     const [stock,setStock] =useState(null)
     const [analysis,setAnalysis] = useState(null)
     const [capexFactor, setCapexFactor] = useState(0.5)
-}
+
 
 const [ownerEarnings, setOwnerEarnings] = useState(0)
-const [fairValue10cap,setFairValue10Cap] = useState(0)
+const [fairValue10Cap,setFairValue10Cap] = useState(0)
 const [percentDifferent,setPercentDifferent] = useState(0)
 const [status,setStatus] = useState("fair")
 
+
 const calculationStatus = (percentDifferent) => {
   if (percentDifferent>10) return "undervalued"
-  if (percentDifferent) return "overvalued"
+  if (percentDifferent< -10) return "overvalued"
   else return "fair"
 }
 
 useEffect (()=>{
   const displayStock = async () => {
     try {
-      const result = await GetStocks().find((ticker)=> (ticker.symbol).toUpperCase())
+      const stocks = await GetStocks()
+      const result = stocks.find((ticker)=> (ticker.symbol || "").toUpperCase() === (symbol || "").toUpperCase())
       setStock(result)}
       catch (error) {
         console.log("Failed to load the stock",error)
       }}
 
-      displayStock()},[symbol])
+      displayStock()
+    },[symbol])
 
-useEffect(()=>{
-  const ownerEarnings = Number(stock.operatingCashFlow) - capexFactor * Math.abs(Number(stock.capitalExpenditure))
+useEffect(()=>{ if (!stock) return
+  const ownerEarnings = Number(stock.operatingCashFlow) - Number(capexFactor) * Math.abs(Number(stock.capitalExpenditure))
 
   const fairValue10Cap = (ownerEarnings/Number(stock.outstandingShares)) * 10
 
@@ -49,6 +52,20 @@ useEffect(()=>{
   setPercentDifferent(percentDifferent)
   setStatus(calculationStatus(percentDifferent))
 }, [stock,capexFactor])
+
+useEffect(()=> {
+  if (!user || !stock) return
+
+  const load = async () => {
+    const list = await GetAnalysisByUser(user.id)
+    const exist = list.find((ticker)=> ticker.stockId === stock._id)
+    if (exist) {
+      setAnalysis(exist)
+      setCapexFactor(exist.capexFactor ?? 0.5)
+    }
+  }
+  load()
+},[user,stock])
 
 const runAnalysis = async ()=> {
   try {if (!stock) return
@@ -117,6 +134,7 @@ const runAnalysis = async ()=> {
         type="number"
         step="0.1"
         value={capexFactor}
+        onChange={(e) => setCapexFactor(e.target.value)}
         />
         <button onClick={runAnalysis}>
           {analysis ? "Update Analysis" : "Run Analysis"}
@@ -126,7 +144,7 @@ const runAnalysis = async ()=> {
       <div className="analysis-card">
         <h3> 10 Cap Calculations</h3>
         <p>Owner Earnings: {ownerEarnings}</p>
-        <p>Fair Value (10 Cap) : {fairValue10cap}</p>
+        <p>Fair Value (10 Cap) : {fairValue10Cap}</p>
         <p>% Difference: {percentDifferent}</p>
         <p>Status: {status} </p>
 
@@ -138,10 +156,11 @@ const runAnalysis = async ()=> {
           <p>analysis price: {Number(analysis.analysisPrice)}</p>
           <p>Fair Value 10 Cap : {Number(analysis.fairValue10Cap)}</p>
           <p>percentDifferent: {Number(analysis.percentDifferent)}</p>
-          <p>status: {Number(analysis.status)}</p>
+          <p>status: {analysis.status}</p>
     </div>
       )}
       <button onClick={()=> navigate ("/stocks")}>Back to Stocks </button>
       </div>
   )
+}
   export default Analysis

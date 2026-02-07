@@ -11,6 +11,7 @@ import Register from "./pages/auth/Register"
 import Feed from "./pages/auth/Feed"
 
 import StocksHome from "./pages/stocks/Home"
+import Analysis from "./pages/analysis/Analysis"
 
 
 const App = () => {
@@ -48,7 +49,7 @@ const App = () => {
 
           {/* Stocks */}
           <Route path="/stocks" element={<StocksHome user={user} />} />
-
+          <Route path="/analysis/:symbol" element={<Analysis user={user}/>}/>
         </Routes>
       </main>
     </>

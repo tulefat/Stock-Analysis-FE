@@ -1,8 +1,8 @@
 import Client from "../api";
 
 
-export const CreateAnalysis = async (data) => {
-  const res = await Client.post("/analysis", data)
+export const CreateWatchlist = async (data) => {
+  const res = await Client.post("/watchlist", data)
   return res.data
 }
 
