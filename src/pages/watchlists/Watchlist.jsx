@@ -107,9 +107,10 @@ return (
           Delete
         </button>
       </div>
-    )
-    )}
-</div>)}
+    ))}
+</div>
+)
+}
 
 export default Watchlist
 

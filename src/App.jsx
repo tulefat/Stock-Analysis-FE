@@ -12,7 +12,7 @@ import Feed from "./pages/auth/Feed"
 
 import StocksHome from "./pages/stocks/Home"
 import Analysis from "./pages/analysis/Analysis"
-
+import Watchlist from "./pages/watchlists/Watchlist"
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -50,6 +50,7 @@ const App = () => {
           {/* Stocks */}
           <Route path="/stocks" element={<StocksHome user={user} />} />
           <Route path="/analysis/:symbol" element={<Analysis user={user}/>}/>
+          <Route path="/watchlist" element={<Watchlist user={user}/>}/>
         </Routes>
       </main>
     </>
