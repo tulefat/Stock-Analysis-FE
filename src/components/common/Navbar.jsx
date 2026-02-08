@@ -47,6 +47,12 @@ const Nav = ({ user, handleLogOut }) => {
                 Stocks
               </NavLink>
 
+              <NavLink className="stock-analysis-nav__link" to="/analysis">
+                Analysis
+              </NavLink>
+              <NavLink className="stock-analysis-nav__link" to="/watchlist">
+              Watchlist
+              </NavLink>
 
               <button
                 className="stock-analysis-nav__link stock-analysis-nav__btn"

@@ -72,7 +72,7 @@ useEffect(()=> {
 const addWatchlist = async () => {
   if (!stock) return
   await CreateWatchlist({
-    srockId: stock._id,
+    stockId: stock._id,
     decision: watchDecision
   })
   navigate ("/watchlist")

@@ -1,5 +1,5 @@
-import { useEffect,useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect,useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import {GetStocks} from "../../services/api/Stocks.api"
 
@@ -46,8 +46,8 @@ const Watchlist =({user}) => {
       navigate("/watchlist")
     }
  const changeDecision = (itemId,newDecision) => {
-  const update = watchlist.map((watch)) =>
-    watch._id === itemId ? {...watch,decision:newDecision} : watch
+  const update = watchlist.map((watch) => ( watch._id === itemId ? {...watch, decision: newDecision} : watch
+))
   setWatchlist(update)
  }
 
