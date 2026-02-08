@@ -5,6 +5,8 @@ import { GetStocks } from "../../services/api/Stocks.api"
 
 import { CreateAnalysis, GetAnalysisByUser, UpdateAnalysis } from "../../services/api/Analysis.api"
 
+import { CreateWatchlist } from "../../services/api/Watchlists.api"
+
 const Analysis = ({ user }) => {
     const navigate = useNavigate()
     const {symbol} = useParams()
@@ -19,7 +21,7 @@ const [ownerEarnings, setOwnerEarnings] = useState(0)
 const [fairValue10Cap,setFairValue10Cap] = useState(0)
 const [percentDifferent,setPercentDifferent] = useState(0)
 const [status,setStatus] = useState("fair")
-
+const[watchDecision, setWatchDecision] = useState("Watch")
 
 const calculationStatus = (percentDifferent) => {
   if (percentDifferent>10) return "undervalued"
@@ -66,6 +68,15 @@ useEffect(()=> {
   }
   load()
 },[user,stock])
+
+const addWatchlist = async () => {
+  if (!stock) return
+  await CreateWatchlist({
+    srockId: stock._id,
+    decision: watchDecision
+  })
+  navigate ("/watchlist")
+}
 
 const runAnalysis = async ()=> {
   try {if (!stock) return
@@ -159,6 +170,21 @@ const runAnalysis = async ()=> {
           <p>status: {analysis.status}</p>
     </div>
       )}
+       <div className="analysis-card">
+        <h3> Add to Watchlist </h3>
+        <select
+     value={watchDecision}
+     onChange={(e)=> setWatchDecision(e.target.value)}>
+
+      <option value="Watch">Watch</option>
+      <option value="Buy">Buy</option>
+      <option value="Sell">Sell</option>
+     </select>
+
+    <button onClick={addWatchlist}>
+      Add to Watchlist
+    </button>
+</div>
       <button onClick={()=> navigate ("/stocks")}>Back to Stocks </button>
       </div>
   )
