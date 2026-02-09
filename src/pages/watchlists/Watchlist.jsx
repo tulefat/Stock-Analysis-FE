@@ -5,6 +5,8 @@ import {GetStocks} from "../../services/api/Stocks.api"
 
 import { CreateWatchlist,GetWatchlist,UpdateWatchlist,DeleteWatchlist } from "../../services/api/Watchlists.api";
 
+import { GetAnalysisByUser } from "../../services/api/Analysis.api";
+
 const Watchlist =({user}) => {
   const navigate = useNavigate()
   const [stocks, setStocks] = useState([])
@@ -12,6 +14,7 @@ const Watchlist =({user}) => {
 
   const [stockId, setStockId] = useState("")
   const [decision, setDecision] = useState("Watch")
+ const [analysisList, setAnalysisList] = useState([])
 
   const data = async () => {
     const stocksData = await GetStocks()
@@ -19,6 +22,9 @@ const Watchlist =({user}) => {
 
     const watchlistData = await GetWatchlist()
     setWatchlist(watchlistData)
+
+    const analysisData = await GetAnalysisByUser()
+    setAnalysisList(analysisData)
   }
   useEffect(()=>{
     if (user) data()
@@ -88,9 +94,24 @@ return (
     </button>
     </form>
 
-    {watchlist.map((item)=> (
+    {watchlist.map((item)=> {
+
+ const analysis = analysisList.find((ticker) => ticker.stockId === item.stockId._id)
+
+
+    return (
+
       <div key={item._id}>
         <h3>{item.stockId.symbol} - {item.stockId.name} </h3>
+
+
+      {analysis && (
+        <div className="analysis-card">
+          <p>analysis price: {Number(analysis.analysisPrice)}</p>
+          <p>Fair Value 10 Cap : {Number(analysis.fairValue10Cap)}</p>
+          <p>status: {analysis.status}</p>
+          </div>
+        )}
 
         <select
         value ={item.decision}
@@ -107,7 +128,8 @@ return (
           Delete
         </button>
       </div>
-    ))}
+    )
+    })}
 </div>
 )
 }

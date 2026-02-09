@@ -24,8 +24,8 @@ const [status,setStatus] = useState("fair")
 const[watchDecision, setWatchDecision] = useState("Watch")
 
 const calculationStatus = (percentDifferent) => {
-  if (percentDifferent>10) return "undervalued"
-  if (percentDifferent< -10) return "overvalued"
+  if (percentDifferent>30) return "undervalued"
+  if (percentDifferent< -30) return "overvalued"
   else return "fair"
 }
 
