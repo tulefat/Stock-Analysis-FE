@@ -83,6 +83,12 @@ return (
     key={stock._id}
     symbol={stock.symbol}
     name={stock.name}
+
+    website={stock.website}
+    description={stock.description}
+    sector={stock.sector}
+    image={stock.image}
+
     onClick={()=>analysis(stock)}
     />
   ))}
