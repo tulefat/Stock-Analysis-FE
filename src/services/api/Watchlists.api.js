@@ -1,8 +1,8 @@
 import Client from "../api";
 
 
-export const CreateAnalysis = async (data) => {
-  const res = await Client.post("/analysis", data)
+export const CreateWatchlist = async (data) => {
+  const res = await Client.post("/watchlist", data)
   return res.data
 }
 
@@ -12,11 +12,11 @@ export const GetWatchlist = async () => {
 }
 
 export const UpdateWatchlist = async (watchlistId,data) => {
-  const res = await Client.put('/watchlist/${watchlistId}', data)
+  const res = await Client.put(`/watchlist/${watchlistId}`, data)
   return res.data
 }
 
 export const DeleteWatchlist = async (watchlistId) => {
-  const res = await Client.delete('/watchlist/${watchlistId}')
+  const res = await Client.delete(`/watchlist/${watchlistId}`)
   return res.data
 }

@@ -1,9 +1,23 @@
-const Stock = (props) => {
+const Stock = ({symbol, name, onClick, website, description, sector, image }) => {
   return (
-    <div className="card stock" onClick={props.onClick}>
+
+    <div className="card stock" onClick={onClick}>
     <div className="info-wrapper flex-col">
-      <h3>{props.symbol}</h3>
-      <h2>{props.name}</h2>
+      {image && (
+        <img
+         src={image}
+         alt={name}
+         style={{ width: "80px",
+         display: "block"
+         }} />
+        )}
+      <h3>{symbol}</h3>
+      <h2>{name}</h2>
+      <h1>{description}</h1>
+      <p>
+        <a href={website}>{website}</a>
+        </p>
+
     </div>
 
     </div>

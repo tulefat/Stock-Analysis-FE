@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { GetTeams } from "../../services/api/teams.api"
-import {isPMUser} from "../../utils/user.utils"
+import { GetStocks } from "../../services/api/Stocks.api"
+
 
 const Feed = ({ user }) => {
   const navigate = useNavigate()
-  const [teams, setTeams] = useState([])
+  const [stocks, setStocks] = useState([])
 
   useEffect(() => {
-    const obtainTeams = async () => {
+    const obtainStocks = async () => {
       try {
-        const data = await GetTeams()
-        setTeams(data)
+        const data = await GetStocks()
+        setStocks(data)
       } catch (error) {
-        console.log("Failed to load teams", error)
+        console.log("Failed to load stocks", error)
       }
     }
 
-    obtainTeams()
+    obtainStocks()
   }, [])
 
   if (!user) {
@@ -32,24 +32,25 @@ const Feed = ({ user }) => {
   return (
     <div>
       <h1>Welcome {user.name}</h1>
-      <h2>Teams Overview</h2>
-      {isPMUser && (
-        <button onClick={() => navigate("/teams/add")}>
-          Create New Team
+      <h2>Stocks Overview</h2>
+
+        <button onClick={() => navigate("/stocks")}>
+          Go To Stocks
         </button>
-      )}
-      {teams.length === 0 ? (
-        <p>No teams available</p>
+
+      {stocks.length === 0 ? (
+        <p>No stocks available</p>
       ) : (
         <div >
-          {teams.map((team) => (
-            <div key={team._id}>
-              <h3>{team.name}</h3>
+          {stocks.map((stock) => (
+            <div key={stock._id}>
+              <h3>{stock.symbol}</h3>
+              <p>{stock.name}</p>
 
-              <p>Members: {team.members ? team.members.length : 0}</p>
 
-              <button onClick={() => navigate(`/teams/${team._id}`)}>
-                View Team
+
+              <button onClick={() => navigate(`/analysis/${stock.symbol}`)}>
+                View analysis
               </button>
             </div>
           ))}

@@ -9,12 +9,10 @@ const Register = () => {
 
   const initialState = {
     username: "",
-    fullname: "",
     email: "",
     password: "",
     confirmPassword: "",
-    user_role: "",
-    department: "",
+
   }
 
   const [formValues, setFormValues] = useState(initialState)
@@ -27,11 +25,9 @@ const Register = () => {
     e.preventDefault()
     await RegisterUser({
       username: formValues.username,
-      fullname: formValues.fullname,
+
       email: formValues.email,
       password: formValues.password,
-      user_role: formValues.user_role,
-      department: formValues.department,
     })
     setFormValues(initialState)
     navigate("/signin")
@@ -42,7 +38,7 @@ const Register = () => {
       <div className="auth-card">
         <h1 className="auth-title">Create Account</h1>
         <p className="auth-subtitle">
-          Join stock_analysis and start managing your projects
+          Join stock analysis and create your watchlist
         </p>
 
         <form className="auth-form" onSubmit={handleSubmit}>
@@ -58,17 +54,6 @@ const Register = () => {
             />
           </div>
 
-          <div>
-            <label>Full Name</label>
-            <input
-              name="fullname"
-              type="text"
-              placeholder="full name"
-              onChange={handleChange}
-              value={formValues.fullname}
-              required
-            />
-          </div>
 
           <div>
             <label>Email</label>
@@ -107,35 +92,9 @@ const Register = () => {
             />
           </div>
 
-          <div>
-            <label>User Role</label>
-            <select
-              name="user_role"
-              onChange={handleChange}
-              value={formValues.user_role}
-              required
-            >
-              <option value="">Select Role</option>
-              <option value="Manager">Manager</option>
-              <option value="PM">PM</option>
-              <option value="Employee">Employee</option>
-            </select>
-          </div>
 
-          <div>
-            <label>Department</label>
-            <select
-              name="department"
-              onChange={handleChange}
-              value={formValues.department}
-              required
-            >
-              <option value="">Select Department</option>
-              <option value="IT">IT</option>
-              <option value="HR">HR</option>
-              <option value="Marketing">Marketing</option>
-            </select>
-          </div>
+
+
 
           <button
             disabled={
