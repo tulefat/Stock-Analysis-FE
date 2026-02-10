@@ -39,15 +39,14 @@ const App = () => {
       <main>
         <Routes>
 
-          {/* Public Routes */}
+
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Protected-ish Pages */}
+
           <Route path="/feed" element={<Feed user={user} />} />
 
-          {/* Stocks */}
           <Route path="/stocks" element={<StocksHome user={user} />} />
           <Route path="/analysis/:symbol" element={<Analysis user={user}/>}/>
           <Route path="/watchlist" element={<Watchlist user={user}/>}/>

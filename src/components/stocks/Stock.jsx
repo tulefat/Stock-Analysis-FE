@@ -14,6 +14,7 @@ const Stock = ({symbol, name, onClick, website, description, sector, image }) =>
       <h3>{symbol}</h3>
       <h2>{name}</h2>
       <h1>{description}</h1>
+      <h3>{sector}</h3>
       <p>
         <a href={website}>{website}</a>
         </p>

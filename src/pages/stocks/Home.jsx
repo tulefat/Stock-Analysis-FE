@@ -3,6 +3,7 @@ import{useNavigate} from "react-router-dom"
 import Search from "../../components/stocks/Search"
 import Stock from "../../components/stocks/Stock"
 import { GetStocks,SearchStocks,CreateStock,GetCashFlow,GetSharesOutstanding,GetStockPrice } from "../../services/api/Stocks.api"
+import "../../assets/styles/stocks.css"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -31,7 +32,7 @@ const Home = () => {
       const symbol = stock.symbol
       const data =
       {
-      symbol:symbol, name:stock.name,
+      symbol:stock.symbol, name:stock.name,
     }
 
     await CreateStock(data)
@@ -53,31 +54,55 @@ useEffect(() => {
 },[])
 
 return (
-  <div>
+  <div className="sa-stocks-page">
+        <div className="sa-stocks-wrap">
+          <div className="sa-stocks-header">
+        <div>
+          <h1 className="sa-stocks-title">Stocks</h1>
+          <p className="sa-stocks-subtitle">
+            Search stocks, save them, then open analysis to compute intrinsic value (10-cap) and track them later.
+          </p>
+        </div>
+
+        <div className="sa-pill">
+          <span className="sa-pill__dot" />
+          <span>{stocks.length} saved</span>
+        </div>
+      </div>
+            <div className="sa-panel sa-fade-in">
+        <div className="sa-search">
 <Search value={searchQuery} onChange={handleChange} onSubmit={getSearchResults} />
+        </div>
+      </div>
 
 {searched && (
-  <div className="search">
-    <h1> Search Results</h1>
-    <section className="search-results container-grid">
+          <div className="sa-section sa-fade-in">
+
+          <h1 className="sa-section-title">
+            Search Results <span>{searchResults.length}</span>
+          </h1>
+            <div className="sa-panel sa-panel--tight">
+                        <section className="search-results sa-grid">
    {searchResults.map((data,index)=>(
     <Stock
     key={data.symbol}
     symbol={data.symbol}
     name={data.name}
     onClick={()=>saveStock(data)}
-    />
-   ))}
+           />
+              ))}
+            </section>
+          </div>
+        </div>
+      )}
 
-    </section>
+   <div className="sa-section sa-fade-in">
+         <h2 className="sa-section-title">
+         Saved Stocks <span>{stocks.length}</span>
+        </h2>
+              <div className="sa-panel sa-panel--tight">
+                  <section className="sa-grid">
 
-  </div>
-)}
-
-<div className="stocks">
-<h2> Saved Stocks</h2>
-
-<section className="container-grid">
   {stocks.map((stock) => (
     <Stock
     key={stock._id}
@@ -94,6 +119,8 @@ return (
   ))}
 </section>
   </div>
+</div>
+</div>
 </div>
 )
 }

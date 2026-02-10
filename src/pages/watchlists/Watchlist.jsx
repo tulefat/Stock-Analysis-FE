@@ -7,6 +7,8 @@ import { CreateWatchlist,GetWatchlist,UpdateWatchlist,DeleteWatchlist } from "..
 
 import { GetAnalysisByUser } from "../../services/api/Analysis.api";
 
+import "../../assets/styles/watchlists.css"
+
 const Watchlist =({user}) => {
   const navigate = useNavigate()
   const [stocks, setStocks] = useState([])

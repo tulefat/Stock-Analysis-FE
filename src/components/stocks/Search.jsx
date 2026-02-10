@@ -5,7 +5,7 @@ const Search = (props) => {
       type="text"
       name="search"
       value={props.value}
-      placeholder="search stocks ex: GOOG"
+      placeholder="search stocks ex: Microsoft"
       onChange={props.onChange}
       />
       <button>Submit</button>

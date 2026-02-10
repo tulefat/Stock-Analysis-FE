@@ -7,6 +7,8 @@ import { CreateAnalysis, GetAnalysisByUser, UpdateAnalysis } from "../../service
 
 import { CreateWatchlist } from "../../services/api/Watchlists.api"
 
+import "../../assets/styles/analysis.css"
+
 const Analysis = ({ user }) => {
     const navigate = useNavigate()
     const {symbol} = useParams()
@@ -108,7 +110,7 @@ const runAnalysis = async ()=> {
 
   if (!user) {
     return (
-      <div>
+      <div className="analysis">
       <h2> You must signed in </h2>
       <button onClick={()=> navigate ("/signin")}>Sign In </button>
       </div>
@@ -117,7 +119,7 @@ const runAnalysis = async ()=> {
 
   if (!stock) {
     return (
-      <div>
+      <div className="analysis">
 <h2>Analysis</h2>
 <p>Stock not found in the saved list.</p>
 <button onClick={()=> navigate ("/stocks")}>Back to stock search  </button>
