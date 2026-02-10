@@ -80,6 +80,7 @@ return (
         {stock.symbol} - {stock.name}
       </option>
     ))}
+    
       </select>
      <label>Decision :</label>
      <select
@@ -109,8 +110,8 @@ return (
 
       {analysis && (
         <div className="analysis-card">
-          <p>analysis price: {Number(analysis.analysisPrice)}</p>
-          <p>Fair Value 10 Cap : {Number(analysis.fairValue10Cap)}</p>
+          <p>Analysis Market Price: {Number(analysis.analysisPrice)} $</p>
+          <p>Fair Value 10 Cap : {Number(analysis.fairValue10Cap)} $</p>
           <p>status: {analysis.status}</p>
           </div>
         )}

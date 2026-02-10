@@ -8,7 +8,7 @@ const Search = (props) => {
       placeholder="search stocks ex: Microsoft"
       onChange={props.onChange}
       />
-      <button>Submit</button>
+      <button>Search</button>
     </form>
   )
 }

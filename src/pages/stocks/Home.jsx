@@ -64,10 +64,7 @@ return (
           </p>
         </div>
 
-        <div className="sa-pill">
-          <span className="sa-pill__dot" />
-          <span>{stocks.length} saved</span>
-        </div>
+
       </div>
             <div className="sa-panel sa-fade-in">
         <div className="sa-search">
@@ -98,7 +95,7 @@ return (
 
    <div className="sa-section sa-fade-in">
          <h2 className="sa-section-title">
-         Saved Stocks <span>{stocks.length}</span>
+          Stocks <span>{stocks.length}</span>
         </h2>
               <div className="sa-panel sa-panel--tight">
                   <section className="sa-grid">

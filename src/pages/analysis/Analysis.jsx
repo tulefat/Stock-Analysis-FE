@@ -136,10 +136,10 @@ const runAnalysis = async ()=> {
 
       <div className="analysis-card">
         <h3> Stock fundamentals</h3>
-        <p>Price: {Number(stock.price)}</p>
-        <p>Operating Cash Flow: {Number(stock.operatingCashFlow)}</p>
-        <p>Capital Expenditure: {Number(stock.capitalExpenditure)}</p>
-        <p>Outstanding Shares: {Number(stock.outstandingShares)}</p>
+        <p>Market Price: {Number(stock.price)} $ </p>
+        <p>Operating Cash Flow: {Number(stock.operatingCashFlow).toLocaleString()} $</p>
+        <p>Capital Expenditure: {Number(stock.capitalExpenditure).toLocaleString()} $</p>
+        <p>Outstanding Shares: {Number(stock.outstandingShares).toLocaleString()} </p>
       </div>
       <div className="analysis-card">
         <h3>Capex Factor</h3>
@@ -156,19 +156,19 @@ const runAnalysis = async ()=> {
       </div>
       <div className="analysis-card">
         <h3> 10 Cap Calculations</h3>
-        <p>Owner Earnings: {ownerEarnings}</p>
-        <p>Fair Value (10 Cap) : {fairValue10Cap}</p>
-        <p>% Difference: {percentDifferent}</p>
+        <p>Owner Earnings: {ownerEarnings.toLocaleString()} $ </p>
+        <p>Fair Value (10 Cap) : {fairValue10Cap.toLocaleString()} $</p>
+        <p>% Difference: {percentDifferent} %</p>
         <p>Status: {status} </p>
 
       </div>
       {analysis && (
         <div className="analysis-card">
-          <h3>Saved Analysis </h3>
+          <h3>Latest Analysis </h3>
           <p>capexFactor: {analysis.capexFactor}</p>
-          <p>analysis price: {Number(analysis.analysisPrice)}</p>
-          <p>Fair Value 10 Cap : {Number(analysis.fairValue10Cap)}</p>
-          <p>percentDifferent: {Number(analysis.percentDifferent)}</p>
+          <p>Analysis Market Price: {Number(analysis.analysisPrice)} $</p>
+          <p>Fair Value 10 Cap : {Number(analysis.fairValue10Cap)} $</p>
+          <p>% Difference: {Number(analysis.percentDifferent)} %</p>
           <p>status: {analysis.status}</p>
     </div>
       )}

@@ -24,9 +24,6 @@ const Nav = ({ user, handleLogOut }) => {
         <nav className="stock-analysis-nav__links">
           {!user ? (
             <>
-              <NavLink className="stock-analysis-nav__link" to="/feed">
-                Home
-              </NavLink>
               <NavLink className="stock-analysis-nav__link" to="/register">
                 Register
               </NavLink>
@@ -51,7 +48,7 @@ const Nav = ({ user, handleLogOut }) => {
               Watchlist
               </NavLink>
 
-              <NavLink className="stock-analysis-nav__link" to="/feed">
+              <NavLink className="stock-analysis-nav__link" to="/">
                 Home
               </NavLink>
 
