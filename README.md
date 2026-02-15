@@ -11,7 +11,6 @@ This app is designed as an **educational financial analysis tool** and is not in
 
 ## Screenshot(s)
 
-> Add these images to a `/screenshots` folder and update paths if needed.
 
 ### Landing / Stocks Page
 ![Stocks Page](screenshots/stocks.PNG)
